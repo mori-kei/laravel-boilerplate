@@ -1,0 +1,28 @@
+{
+  "plugins": [
+    "@shufo/prettier-plugin-blade"
+  ],
+  "overrides": [
+    {
+      "files": ["*.js", "*.vue"],
+      "options": {
+        "singleQuote": true,
+        "semi": false,
+        "trailingComma": "none"
+      }
+    },
+    {
+      "files": ["*.php"],
+      "options": {
+        "singleQuote": true
+      }
+    },
+    {
+      "files": ["*.blade.php"],
+      "options": {
+        "parser": "blade",
+        "singleQuote": true
+      }
+    }
+  ]
+}

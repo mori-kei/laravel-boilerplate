@@ -1,0 +1,10 @@
+.prettierrc
+.devcontainer/devcontainer.json
+.vscode/settings.json
+
+composer.json
+composer.lock
+
+vendor
+storage
+frontend/dist

@@ -1,0 +1,48 @@
+name: check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run PHP linter
+        run: npm run lint
+
+      - name: Copy env
+        run: cp .env.test .env
+
+      - run: docker-compose pull mysql redis meilisearch mailpit
+
+      - name: Vendor sail
+        run: |
+          docker run --rm \
+            -u "$(id -u):$(id -g)" \
+            -v "$(pwd):/var/www/html" \
+            -w /var/www/html \
+            laravelsail/php81-composer:latest \
+            composer install --ignore-platform-reqs
+
+      - run: docker-compose up --build -d
+
+      - run: docker-compose exec -it app yarn format:check
+
+      - run: docker-compose exec -it frontend yarn install
+
+      - run: docker-compose exec -it frontend yarn lint
+
+      - run: docker-compose exec -it frontend yarn build
+
+      - name: Test Backend
+        run: docker-compose exec -it app php artisan test
+
+      - name: Test E2E
+        run: docker-compose exec -it app php artisan dusk
