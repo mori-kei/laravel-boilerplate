@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Manager\TeamController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +25,7 @@ Route::get('/', function () {
 Route::get('/login', [LoginController::class, 'showForm'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
+Route::get('/manager/teams',[TeamController::class,'index'])->name('index');
 // ------------------------------
 // 階層的に、かつ複数のエンドポイントを定義する方式
 Route::middleware(['auth', 'ensureAdmin']) // 適用したいMiddleware名（ app/Http/Kernel.phpで定義 ）

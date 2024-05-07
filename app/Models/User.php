@@ -45,7 +45,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'role' => UserRole::class,
     ];
-
+    public function ownTeams(){
+        return $this->hasMany(Team::class);
+    }
     public function isAdmin()
     {
         return $this->role == UserRole::Admin;
@@ -83,4 +85,5 @@ class User extends Authenticatable
     private function setPassword($password) {
         $this->attributes['password'] = bcrypt($password);
     }
+    
 }
