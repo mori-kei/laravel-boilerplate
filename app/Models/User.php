@@ -46,7 +46,7 @@ class User extends Authenticatable
         'role' => UserRole::class,
     ];
     public function ownTeams(){
-        return $this->hasMany(Team::class);
+        return $this->hasMany(Team::class,'owner_id');
     }
     public function isAdmin()
     {
