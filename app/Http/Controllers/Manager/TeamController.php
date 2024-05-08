@@ -81,7 +81,7 @@ class TeamController extends \App\Http\Controllers\Controller
         ]);
         $team->update(["name"=>$request->name,
     ]);
-    return to_route('manager.teams.show', ['team' => $team->id])->with('success', "{$team->name}を更新しました");
+        return to_route('manager.teams.show', ['team' => $team->id])->with('success', "{$team->name}を更新しました");
     }
 
     /**
