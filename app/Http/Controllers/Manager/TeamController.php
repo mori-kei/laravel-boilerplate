@@ -37,10 +37,10 @@ class TeamController extends \App\Http\Controllers\Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:20', 
-            'owner_id' => 'required', 
         ]);
         $owner_id = auth()->id();
         $team = new Team($validated);
+        $team->owner_id = $owner_id;
         $team->save();
         return to_route('manager.teams.show', $team)->with('success', 'チームを作成しました');
     }
@@ -78,10 +78,11 @@ class TeamController extends \App\Http\Controllers\Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:20', 
-            'owner_id' => 'required', 
+           
         ]);
+        $owner_id = auth()->id();
         $team->update(["name"=>$request->name,
-        "owner_id" => $request->owner_id,
+        "owner_id" => $owner_id,
     ]);
     return to_route('manager.teams.show', ['team' => $team->id])->with('success', "{$team->name}を更新しました");
     }

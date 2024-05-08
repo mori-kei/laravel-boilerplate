@@ -17,10 +17,7 @@
             @foreach ($teams as $team)
                 <tr>
                     <th scope="row">{{ $team->id }}</th>
-                    
                     <td><a href="{{ route('manager.teams.show', $team) }}">{{ $team->name }}</a></td>
-                    
-                    
                 </tr>
             @endforeach
         </tbody>

@@ -37,9 +37,4 @@ Route::middleware(['auth', 'ensureAdmin']) // 適用したいMiddleware名（ ap
 
 Route::prefix('manager')->name('manager.')->group(function(){
     Route::resource('/teams', TeamController::class); 
-    // Route::get('teams',[TeamController::class,'index'])->name('index');
-    // Route::get('teams/create',[TeamController::class,'create'])->name('create');
-    // Route::post('teams',[TeamController::class,'store'])->name('store');
-    // Route::get('teams/{team}',[TeamController::class,'show'])->name('show');
-    // Route::get('teams/{team}/edit',[TeamController::class,'edit'])->name('edit');
 });

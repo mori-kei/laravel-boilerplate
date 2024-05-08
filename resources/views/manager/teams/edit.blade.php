@@ -8,8 +8,6 @@
         <form action="{{ route('manager.teams.update', $team) }}" method="post">
             @csrf
             @method('patch')
-            <input type="hidden" name="owner_id" value={{auth()->id()}} id="owner_id"
-            class="form-control">
             <div class="mb-3">
                 <label class="form-label" for="teamName">名前</label>
                 <input type="text" name="name" value="{{ old('name', $team->name) }}" id="teamName"
