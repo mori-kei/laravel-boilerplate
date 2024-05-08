@@ -25,7 +25,7 @@ Route::get('/', function () {
 Route::get('/login', [LoginController::class, 'showForm'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/manager/teams',[TeamController::class,'index'])->name('index');
+
 // ------------------------------
 // 階層的に、かつ複数のエンドポイントを定義する方式
 Route::middleware(['auth', 'ensureAdmin']) // 適用したいMiddleware名（ app/Http/Kernel.phpで定義 ）
@@ -34,3 +34,12 @@ Route::middleware(['auth', 'ensureAdmin']) // 適用したいMiddleware名（ ap
     ->group(function () {
         Route::resource('/users', UserController::class); // Admin/UserControllerの決められた名前のメソッドに一気に関連づく
     });
+
+Route::prefix('manager')->name('manager.')->group(function(){
+    Route::resource('/teams', TeamController::class); 
+    // Route::get('teams',[TeamController::class,'index'])->name('index');
+    // Route::get('teams/create',[TeamController::class,'create'])->name('create');
+    // Route::post('teams',[TeamController::class,'store'])->name('store');
+    // Route::get('teams/{team}',[TeamController::class,'show'])->name('show');
+    // Route::get('teams/{team}/edit',[TeamController::class,'edit'])->name('edit');
+});

@@ -24,7 +24,7 @@ class TeamController extends \App\Http\Controllers\Controller
      */
     public function create()
     {
-        //
+        return view('manager.teams.create');
     }
 
     /**
@@ -35,7 +35,14 @@ class TeamController extends \App\Http\Controllers\Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:20', 
+            'owner_id' => 'required', 
+        ]);
+        $owner_id = auth()->id();
+        $team = new Team($validated);
+        $team->save();
+        return to_route('manager.teams.show', $team)->with('success', 'チームを作成しました');
     }
 
     /**
@@ -44,9 +51,9 @@ class TeamController extends \App\Http\Controllers\Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Team $team)
     {
-        //
+        return view('manager.teams.show',compact('team'));
     }
 
     /**
@@ -55,9 +62,9 @@ class TeamController extends \App\Http\Controllers\Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Team $team)
     {
-        //
+        return view('manager.teams.edit',compact('team'));
     }
 
     /**
@@ -67,9 +74,16 @@ class TeamController extends \App\Http\Controllers\Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Team $team)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:20', 
+            'owner_id' => 'required', 
+        ]);
+        $team->update(["name"=>$request->name,
+        "owner_id" => $request->owner_id,
+    ]);
+    return to_route('manager.teams.show', ['team' => $team->id])->with('success', "{$team->name}を更新しました");
     }
 
     /**
