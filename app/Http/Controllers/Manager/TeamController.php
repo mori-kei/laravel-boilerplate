@@ -79,8 +79,7 @@ class TeamController extends \App\Http\Controllers\Controller
         $validated = $request->validate([
             'name' => 'required|max:20', 
         ]);
-        $team->update(["name"=>$request->name,
-        ]);
+        $team->update(["name"=>$request->name]);
         return to_route('manager.teams.show', ['team' => $team->id])->with('success', "{$team->name}を更新しました");
     }
 
