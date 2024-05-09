@@ -53,7 +53,7 @@ class TeamController extends \App\Http\Controllers\Controller
      */
     public function show(Team $team)
     {   
-        $tasks = $team->task;
+        $tasks = $team->tasks;
         return view('manager.teams.show',compact('team','tasks'));
     }
 
