@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manager;
 
 use Illuminate\Http\Request;
 use App\Models\Team;
+
 class TeamController extends \App\Http\Controllers\Controller
 {
     /**
