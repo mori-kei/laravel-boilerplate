@@ -34,13 +34,13 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Team $team)
     {
         $validated = $request->validate([
             'title' => 'required', 
             'body' => 'required', 
         ]);
-        $team_id = $request->input('team_id');
+        $team_id = $team->id;
         $task = new Task($validated);
         $task->team_id = $team_id;
         $task->save();

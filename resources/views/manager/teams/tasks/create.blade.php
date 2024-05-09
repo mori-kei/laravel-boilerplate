@@ -5,7 +5,6 @@
     <x-mini-panel>
         <form action="{{ route('manager.teams.tasks.store', ['team' => $team]) }}" method="post">
             @csrf
-            <input type="hidden" name="team_id" value={{$team->id}} id="taskTitle" class="form-control"> 
             <div class="mb-3">
                 <label class="form-label" for="taskTitle">タイトル</label>
                 <input type="text" name="title" value="" id="taskTitle" class="form-control"> 
