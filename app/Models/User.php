@@ -48,6 +48,9 @@ class User extends Authenticatable
     public function ownTeams(){
         return $this->hasMany(Team::class,'owner_id');
     }
+    public function member(){
+        return $this->hasMany(Member::class);
+    }
     public function isAdmin()
     {
         return $this->role == UserRole::Admin;
