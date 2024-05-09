@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    protected $fillable = ['title','body'];
     use HasFactory;
+    protected $fillable = ['title','body'];
     public function team(){
         return $this->belongsTo(Team::class);
     }
