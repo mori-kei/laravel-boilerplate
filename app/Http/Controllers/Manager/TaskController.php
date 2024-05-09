@@ -45,7 +45,6 @@ class TaskController extends Controller
         $task->team_id = $team_id;
         $task->save();
         return to_route('manager.teams.show', $team_id)->with('success', 'タスクを作成しました');
-
     }
 
     /**
@@ -65,9 +64,9 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Team $team, Task $task)
     {
-        //
+        return view('manager.teams.tasks.edit',compact('team','task'));
     }
 
     /**
@@ -77,9 +76,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Team $team, Task $task)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required', 
+            'body' => 'required', 
+        ]);
+        $task->update($validated);
+        return to_route('manager.teams.show',$team)->with('success', 'タスクを更新しました');
     }
 
     /**

@@ -1,11 +1,9 @@
 <x-layout>
     <x-slot name="title">Teams</x-slot>
     <h2>Team管理</h2>
-
     <div class="text-end mb-2">
         <a href="{{ route('manager.teams.create') }}" class="btn btn-primary">新規作成</a>
     </div>
-
     <table class="table table-striped align-middle">
         <thead class="table-light">
             <tr>
