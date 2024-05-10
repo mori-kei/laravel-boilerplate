@@ -14,7 +14,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label" for="taskBody">内容</label>
-                <textarea type="text" name="body" value="" id="taskBody" class="form-control @error('body') is-invalid @enderror">{{ old('body') }}</textarea> 
+                <textarea type="text" name="body" id="taskBody" class="form-control @error('body') is-invalid @enderror">{{ old('body') }}</textarea> 
                 @error('body')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
