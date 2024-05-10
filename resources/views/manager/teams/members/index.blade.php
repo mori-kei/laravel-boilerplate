@@ -27,9 +27,10 @@
                     <th scope="row">
                         @if ($member->role === 0)
                             通常
-                        @else 
-                            管理者
                         @endif
+                        @if ($member->role === 1)
+                            マネージャー
+                        @endif 
                     </th>
                     <td>{{ $member->user->name }}</td>
                 </tr>
