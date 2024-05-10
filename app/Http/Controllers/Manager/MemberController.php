@@ -18,7 +18,7 @@ class MemberController extends Controller
     public function index(Team $team)
     {
         $users = User::all();
-        $members= $team->member;
+        $members= $team->members;
         return view('manager.teams.members.index',compact('team','members','users' ));
     }
 
