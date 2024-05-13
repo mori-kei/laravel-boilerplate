@@ -26,7 +26,11 @@ class TaskController extends Controller
      */
     public function create(Team $team)
     {
-        return view('manager.teams.tasks.create',compact('team'));
+        //学習用にコメントアウト n+1
+        // $members = $team->members()->get();
+        //eagerLoading
+        $members = $team->members()->with('user')->get();
+        return view('manager.teams.tasks.create',compact('team','members'));
     }
 
     /**
