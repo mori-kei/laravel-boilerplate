@@ -48,6 +48,7 @@ class TaskController extends Controller
         $team_id = $team->id;
         $task = new Task($validated);
         $task->team_id = $team_id;
+        $task->assignee_id= $request->assignee_id;
         $task->save();
         return to_route('manager.teams.show', $team_id)->with('success', 'タスクを作成しました');
     }
