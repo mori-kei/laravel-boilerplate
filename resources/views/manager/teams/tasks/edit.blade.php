@@ -28,7 +28,6 @@
                         <option value="{{ $member->user->id}}" @if($task->assignee_id == $member->user->id) selected @endif>{{ $member->user->name}}</option>
                     @endforeach
                 </select>
-                
             </div>
             <input type="submit" value="更新" class="btn btn-primary">
         </form>
