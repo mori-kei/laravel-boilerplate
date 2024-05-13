@@ -88,6 +88,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'title' => 'required', 
             'body' => 'required', 
+            'assignee_id' => ''
         ]);
         $task->update($validated);
         return to_route('manager.teams.show',$team)->with('success', 'タスクを更新しました');
