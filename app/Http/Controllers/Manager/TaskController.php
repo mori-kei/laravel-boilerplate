@@ -72,7 +72,8 @@ class TaskController extends Controller
      */
     public function edit(Team $team, Task $task)
     {
-        return view('manager.teams.tasks.edit',compact('team','task'));
+        $members = $team->members()->with('user')->get();
+        return view('manager.teams.tasks.edit',compact('team','task','members'));
     }
 
     /**

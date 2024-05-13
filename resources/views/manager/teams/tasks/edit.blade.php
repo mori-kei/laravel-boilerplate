@@ -20,6 +20,15 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <div class="mb-3">
+                <label class="form-label" for="taskBody">担当者</label>
+                <select name="assignee_id" class="form-control">
+                    <option value="">なし</option>
+                    @foreach($members as $member) 
+                        <option value="{{ $member->user->id}}">{{ $member->user->name}}</option>
+                    @endforeach
+                </select>   
+            </div>
             <input type="submit" value="更新" class="btn btn-primary">
         </form>
     </x-mini-panel>
