@@ -21,7 +21,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label" for="taskAssignee_id">担当者</label>
-                <select name="assignee_id" class="form-control">
+                <select name="assignee_id" id="taskAssignee_id" class="form-control">
                     <option value="">なし</option>
                     @foreach($members as $member) 
                         <option value="{{ $member->user->id}}">{{ $member->user->name}}</option>
