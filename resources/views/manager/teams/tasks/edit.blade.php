@@ -25,7 +25,7 @@
                 <select name="assignee_id" id="taskAssignee_id" class="form-control">
                     <option value="">なし</option>
                     @foreach($members as $member) 
-                        <option value="{{ $member->user->id}}" @if($task->assignee_id == $member->user->id) selected @endif>{{ $member->user->name}}</option>
+                        <option value="{{ $member->user->id}}" @selected($task->assignee_id == $member->user->id)>{{ $member->user->name}}</option>
                     @endforeach
                 </select>
             </div>
