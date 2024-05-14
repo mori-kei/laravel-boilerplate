@@ -46,6 +46,6 @@ Route::prefix('manager')->name('manager.')->group(function(){
     Route::resource('/teams.members', MemberController::class); 
 });
 
+Route::get('/teams', [TeamController::class, 'index'])->name('teams.index'); 
 Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create'); 
-Route::get('/teams', [TeamController::class, 'create'])->name('teams.index'); 
 Route::post('/teams', [TeamController::class, 'store'])->name('teams.store'); 
