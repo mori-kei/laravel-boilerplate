@@ -24,7 +24,7 @@
                     <tr>
                         <th scope="row">{{ $task->id }}</th>
                         <td>{{ $task->title }}</td>
-                        <td>{{ $task->assignedTo ? $task->assignedTo->name : 'なし' }}</td>
+                        <td>{{ $task->assignedUser ? $task->assignedUser->name : 'なし' }}</td>
                         <td scope="row">{{ $task->created_at }}</td>
                         <td><a href="{{ route('manager.teams.tasks.edit', ['team' => $team->id,'task' => $task->id]) }}" class="btn btn-primary btn-sm">編集</a></td>
                     </tr>
