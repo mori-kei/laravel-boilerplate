@@ -5,6 +5,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Manager\TeamController;
 use App\Http\Controllers\Manager\TaskController;
+use App\Http\Controllers\Manager\MemberController;
+use App\Models\Member;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,4 +42,5 @@ Route::middleware(['auth', 'ensureAdmin']) // 適用したいMiddleware名（ ap
 Route::prefix('manager')->name('manager.')->group(function(){
     Route::resource('/teams', TeamController::class); 
     Route::resource('/teams.tasks', TaskController::class); 
+    Route::resource('/teams.members', MemberController::class); 
 });
