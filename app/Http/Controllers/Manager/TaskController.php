@@ -26,7 +26,11 @@ class TaskController extends Controller
      */
     public function create(Team $team)
     {
-        return view('manager.teams.tasks.create',compact('team'));
+        //学習用にコメントアウト n+1
+        // $members = $team->members()->get();
+        //eagerLoading
+        $members = $team->members()->with('user')->get();
+        return view('manager.teams.tasks.create',compact('team','members'));
     }
 
     /**
@@ -40,6 +44,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'title' => 'required', 
             'body' => 'required', 
+            'assignee_id' => ''
         ]);
         $team_id = $team->id;
         $task = new Task($validated);
@@ -67,7 +72,8 @@ class TaskController extends Controller
      */
     public function edit(Team $team, Task $task)
     {
-        return view('manager.teams.tasks.edit',compact('team','task'));
+        $members = $team->members()->with('user')->get();
+        return view('manager.teams.tasks.edit',compact('team','task','members'));
     }
 
     /**
@@ -82,6 +88,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'title' => 'required', 
             'body' => 'required', 
+            'assignee_id' => ''
         ]);
         $task->update($validated);
         return to_route('manager.teams.show',$team)->with('success', 'タスクを更新しました');
