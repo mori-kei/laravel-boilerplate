@@ -40,7 +40,11 @@ Route::middleware(['auth', 'ensureAdmin']) // 適用したいMiddleware名（ ap
     });
 
 Route::prefix('manager')->name('manager.')->group(function(){
-    Route::resource('/teams', TeamController::class); 
+    Route::resource('/teams', TeamController::class)->except(['create','index','store']);; 
     Route::resource('/teams.tasks', TaskController::class); 
     Route::resource('/teams.members', MemberController::class); 
 });
+
+Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create'); 
+Route::get('/teams', [TeamController::class, 'create'])->name('teams.index'); 
+Route::post('/teams', [TeamController::class, 'store'])->name('teams.store'); 
