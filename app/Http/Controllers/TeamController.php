@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Team;
 
-class TeamController extends \App\Http\Controllers\Controller
+class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class TeamController extends \App\Http\Controllers\Controller
      */
     public function index()
     {
-        //
+        $teams = Team::all();
+        return view('teams.index',compact('teams'));
     }
 
     /**
@@ -24,7 +25,7 @@ class TeamController extends \App\Http\Controllers\Controller
      */
     public function create()
     {
-       //
+        return view('teams.create');
     }
 
     /**
@@ -35,7 +36,14 @@ class TeamController extends \App\Http\Controllers\Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:20', 
+        ]);
+        $owner_id = auth()->id();
+        $team = new Team($validated);
+        $team->owner_id = $owner_id;
+        $team->save();
+        return to_route('manager.teams.show', $team)->with('success', 'チームを作成しました');
     }
 
     /**
@@ -44,10 +52,9 @@ class TeamController extends \App\Http\Controllers\Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Team $team)
-    {   
-        $tasks = $team->tasks;
-        return view('manager.teams.show',compact('team','tasks'));
+    public function show($id)
+    {
+        //
     }
 
     /**
@@ -56,9 +63,9 @@ class TeamController extends \App\Http\Controllers\Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Team $team)
+    public function edit($id)
     {
-        return view('manager.teams.edit',compact('team'));
+        //
     }
 
     /**
@@ -68,13 +75,9 @@ class TeamController extends \App\Http\Controllers\Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Team $team)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|max:20', 
-        ]);
-        $team->update(["name"=>$request->name]);
-        return to_route('manager.teams.show', ['team' => $team->id])->with('success', "{$team->name}を更新しました");
+        //
     }
 
     /**
