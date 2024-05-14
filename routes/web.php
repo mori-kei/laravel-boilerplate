@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Manager\TeamController;
+use App\Http\Controllers\Manager\TeamController as ManagerTeamController;
 use App\Http\Controllers\Manager\TaskController;
 use App\Http\Controllers\Manager\MemberController;
+use App\Http\Controllers\TeamController;
 use App\Models\Member;
 
 /*
