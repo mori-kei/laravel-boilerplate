@@ -41,10 +41,9 @@ class MemberController extends Controller
     public function store(Request $request,Team $team)
     {
         $team_id = $team->id;
-        $user_id = $request->user_id;
         $member = new Member();
         $member->team_id = $team_id;
-        $member->user_id =$user_id;
+        $member->user_id =$request->user_id;
         $member->save();
         return to_route('manager.teams.members.index', $team_id);
     }
