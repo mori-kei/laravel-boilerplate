@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Team;
-
+use App\Models\Member;
 class TeamController extends Controller
 {
     /**
@@ -43,6 +43,15 @@ class TeamController extends Controller
         $team = new Team($validated);
         $team->owner_id = $owner_id;
         $team->save();
+        
+        $team_id= $team->id;
+        $user_id=auth()->id();
+        $member = new Member();
+        $member->team_id = $team_id;
+        $member->user_id = $user_id;
+        $member->role = 1;
+        $member->save();
+        
         return to_route('manager.teams.show', $team)->with('success', 'チームを作成しました');
     }
 
