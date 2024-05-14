@@ -15,7 +15,7 @@ class TeamController extends Controller
     public function index()
     {
         $teams = Team::all();
-        return view('manager.teams.index',compact('teams'));
+        return view('teams.index',compact('teams'));
     }
 
     /**
@@ -25,7 +25,7 @@ class TeamController extends Controller
      */
     public function create()
     {
-        return view('manager.teams.create');
+        return view('teams.create');
     }
 
     /**
