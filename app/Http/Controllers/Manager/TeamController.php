@@ -14,8 +14,7 @@ class TeamController extends \App\Http\Controllers\Controller
      */
     public function index()
     {
-        $teams = Team::all();
-        return view('manager.teams.index',compact('teams'));
+        
     }
 
     /**
@@ -25,7 +24,7 @@ class TeamController extends \App\Http\Controllers\Controller
      */
     public function create()
     {
-        return view('manager.teams.create');
+       //
     }
 
     /**
@@ -36,14 +35,7 @@ class TeamController extends \App\Http\Controllers\Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|max:20', 
-        ]);
-        $owner_id = auth()->id();
-        $team = new Team($validated);
-        $team->owner_id = $owner_id;
-        $team->save();
-        return to_route('manager.teams.show', $team)->with('success', 'チームを作成しました');
+        //
     }
 
     /**

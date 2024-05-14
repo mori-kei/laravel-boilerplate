@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Team;
 
 class TeamController extends Controller
 {
@@ -13,7 +14,8 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
+        $teams = Team::all();
+        return view('manager.teams.index',compact('teams'));
     }
 
     /**
@@ -23,7 +25,7 @@ class TeamController extends Controller
      */
     public function create()
     {
-        //
+        return view('manager.teams.create');
     }
 
     /**
@@ -34,7 +36,14 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:20', 
+        ]);
+        $owner_id = auth()->id();
+        $team = new Team($validated);
+        $team->owner_id = $owner_id;
+        $team->save();
+        return to_route('manager.teams.show', $team)->with('success', 'チームを作成しました');
     }
 
     /**
