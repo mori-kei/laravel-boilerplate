@@ -14,7 +14,7 @@ class TeamController extends \App\Http\Controllers\Controller
      */
     public function index()
     {
-        
+        //
     }
 
     /**
