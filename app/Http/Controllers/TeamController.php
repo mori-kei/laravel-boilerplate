@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Models\Member;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class TeamController extends Controller
 {
     /**
@@ -36,25 +39,30 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|max:20', 
-        ]);
-        $owner_id = auth()->id();
-        $team = new Team($validated);
-        $team->owner_id = $owner_id;
-        $team->save();
-        
-        $team_id= $team->id;
-        $user_id=auth()->id();
-        $member = new Member();
-        $member->team_id = $team_id;
-        $member->user_id = $user_id;
-        $member->role = 1;
-        $member->save();
-        
-        return to_route('manager.teams.show', $team)->with('success', 'チームを作成しました');
+        try {
+            DB::transaction(function () use ($request, &$team) {
+                $user = Auth::user();
+                $user_id = $user->id;
+                $validated = $request->validate([
+                    'name' => 'required|max:20', 
+                ]);
+                $team = new Team($validated);
+                $team->owner_id = $user_id;
+                $team->save();
+                $team_id= $team->id;
+                $member = new Member();
+                $member->team_id = $team_id;
+                $member->user_id = $user_id;
+                $member->role = 1;
+                $member->save();
+            });
+            //[学習用]$teamはトランザクション内で参照渡しをしているから使える。
+            return redirect()->route('manager.teams.show', $team)->with('success', 'チームを作成しました');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back();
+        }
     }
-
     /**
      * Display the specified resource.
      *
