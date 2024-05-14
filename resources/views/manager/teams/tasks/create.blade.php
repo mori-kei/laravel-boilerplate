@@ -20,7 +20,7 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label class="form-label" for="taskBody">担当者</label>
+                <label class="form-label" for="taskAssignee_id">担当者</label>
                 <select name="assignee_id" class="form-control">
                     <option value="">なし</option>
                     @foreach($members as $member) 
