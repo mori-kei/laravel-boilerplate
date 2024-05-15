@@ -39,13 +39,13 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|max:20', 
+        ]);
+        $user = Auth::user();
+        $user_id = $user->id;
         try {
-            DB::transaction(function () use ($request, &$team) {
-                $user = Auth::user();
-                $user_id = $user->id;
-                $validated = $request->validate([
-                    'name' => 'required|max:20', 
-                ]);
+            DB::transaction(function () use ($validated,$user_id,&$team) {
                 $team = new Team($validated);
                 $team->owner_id = $user_id;
                 $team->save();
