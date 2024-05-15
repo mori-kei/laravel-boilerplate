@@ -44,24 +44,19 @@ class TeamController extends Controller
         ]);
         $user = Auth::user();
         $user_id = $user->id;
-        try {
-            DB::transaction(function () use ($validated,$user_id,&$team) {
-                $team = new Team($validated);
-                $team->owner_id = $user_id;
-                $team->save();
-                $team_id= $team->id;
-                $member = new Member();
-                $member->team_id = $team_id;
-                $member->user_id = $user_id;
-                $member->role = 1;
-                $member->save();
-            });
-            //[学習用]$teamはトランザクション内で参照渡しをしているから使える。
-            return redirect()->route('manager.teams.show', $team)->with('success', 'チームを作成しました');
-        } catch (\Exception $e) {
-            DB::rollback();
-            return back();
-        }
+        $team = DB::transaction(function() use ($validated,$user_id){
+            $team = new Team($validated);
+                    $team->owner_id = $user_id;
+                    $team->save();
+                    $team_id= $team->id;
+                    $member = new Member();
+                    $member->team_id = $team_id;
+                    $member->user_id = $user_id;
+                    $member->role = 1;
+                    $member->save();
+                    return $team;
+        });
+        return redirect()->route('manager.teams.show', $team)->with('success', 'チームを作成しました');
     }
     /**
      * Display the specified resource.
