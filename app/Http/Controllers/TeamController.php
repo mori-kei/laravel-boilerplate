@@ -46,14 +46,14 @@ class TeamController extends Controller
         $user_id = $user->id;
         $team = DB::transaction(function() use ($validated,$user_id){
             $team = new Team($validated);
-                    $team->owner_id = $user_id;
-                    $team->save();
-                    $member = new Member();
-                    $member->team_id = $team->id;
-                    $member->user_id = $user_id;
-                    $member->role = 1;
-                    $member->save();
-                    return $team;
+            $team->owner_id = $user_id;
+            $team->save();
+            $member = new Member();
+            $member->team_id = $team->id;
+            $member->user_id = $user_id;
+            $member->role = 1;
+            $member->save();
+            return $team;
         });
         return redirect()->route('manager.teams.show', $team)->with('success', 'チームを作成しました');
     }
