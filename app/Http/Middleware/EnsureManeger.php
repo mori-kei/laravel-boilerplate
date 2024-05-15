@@ -16,7 +16,7 @@ class EnsureManeger
      */
     public function handle(Request $request, Closure $next)
     {
-        $team=$request->route()->parameter('team');
+        $team = $request->route()->parameter('team');
         if (!$request->user()->isManeger($team)) {
             if ($request->is('api/*')) {
                 return response()->json(['message' => 'アクセスできません'], 403);
