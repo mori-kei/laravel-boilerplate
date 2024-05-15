@@ -60,9 +60,9 @@ class User extends Authenticatable
     }
     public function isManeger(Team $team){
         $managerExists = $this->members()
-        ->where('team_id', $team->id)
-        ->where('role', 1)
-        ->exists();
+            ->where('team_id', $team->id)
+            ->where('role', 1)
+            ->exists();
         return $managerExists;
     }
     // 管理者から新規ユーザーを作成する特殊なメソッド。
