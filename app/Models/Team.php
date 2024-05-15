@@ -21,9 +21,9 @@ class Team extends Model
     }
     public function isManager($user){
         return $this->members()
-            ->where('user_id',$user->id)
-            ->where('role', 1)
-            ->exists();
+                    ->where('user_id',$user->id)
+                    ->where('role', 1)
+                    ->exists();
     }
     public static function  createWithOwner($user,$validated){
         $user_id = $user->id;
