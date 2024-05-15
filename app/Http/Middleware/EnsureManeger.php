@@ -14,15 +14,11 @@ class EnsureManeger
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
-    {
+    
+    public function handle(Request $request, Closure $next){
         $team = $request->route('team');
-        if (!$request->user()->isManeger($team)) {
-            if ($request->is('api/*')) {
-                return response()->json(['message' => 'アクセスできません'], 403);
-            } else {
-                return redirect('/')->with('danger', 'アクセスできません');
-            }
+        if (!$team->isManager($request->user())) {
+            return redirect('/')->with('danger', 'アクセスできません');
         }
         return $next($request);
     }

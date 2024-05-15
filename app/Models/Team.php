@@ -19,6 +19,12 @@ class Team extends Model
     public function members(){
         return $this->hasMany(Member::class);
     }
+    public function isManager($user){
+        return $this->members()
+            ->where('user_id',$user->id)
+            ->where('role', 1)
+            ->exists();
+    }
     public static function  createWithOwner($user,$validated){
         $user_id = $user->id;
         $team = DB::transaction(function() use ($validated,$user_id){
