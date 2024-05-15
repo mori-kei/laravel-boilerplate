@@ -48,9 +48,8 @@ class TeamController extends Controller
             $team = new Team($validated);
                     $team->owner_id = $user_id;
                     $team->save();
-                    $team_id= $team->id;
                     $member = new Member();
-                    $member->team_id = $team_id;
+                    $member->team_id = $team->id;
                     $member->user_id = $user_id;
                     $member->role = 1;
                     $member->save();
