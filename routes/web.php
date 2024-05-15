@@ -7,6 +7,7 @@ use App\Http\Controllers\Manager\TeamController as ManagerTeamController;
 use App\Http\Controllers\Manager\TaskController;
 use App\Http\Controllers\Manager\MemberController;
 use App\Http\Controllers\TeamController;
+use App\Http\Middleware\EnsureManeger;
 use App\Models\Member;
 
 /*
@@ -40,7 +41,7 @@ Route::middleware(['auth', 'ensureAdmin']) // 適用したいMiddleware名（ ap
         Route::resource('/users', UserController::class); // Admin/UserControllerの決められた名前のメソッドに一気に関連づく
     });
 
-Route::prefix('manager')->name('manager.')->group(function(){
+Route::prefix('manager')->name('manager.')->middleware(['auth','ensureManager'])->group(function(){
     Route::resource('/teams', ManagerTeamController::class)->except(['create','index','store']);; 
     Route::resource('/teams.tasks', TaskController::class); 
     Route::resource('/teams.members', MemberController::class); 
