@@ -59,11 +59,11 @@ class User extends Authenticatable
         return $this->role == UserRole::Admin;
     }
     public function isManeger(Team $team){
-        $teamExists = $this->members()
+        $managerExists = $this->members()
         ->where('team_id', $team->id)
         ->where('role', 1)
         ->exists();
-        return $teamExists;
+        return $managerExists;
     }
     // 管理者から新規ユーザーを作成する特殊なメソッド。
     // 作成されたユーザーはemailの認証が済んだ状態になる。
