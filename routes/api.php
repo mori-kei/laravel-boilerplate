@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\UserController;
-
+use App\Http\Controllers\Api\Me\TaskController as MeTaskController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,3 +32,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/tasks', TaskController::class);
 });
 
+Route::middleware(['auth:sanctum'])->prefix('me')->group(function () {
+    Route::apiResource('/tasks', MeTaskController::class);
+});
