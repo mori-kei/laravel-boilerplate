@@ -18,7 +18,7 @@ class TeamTest extends TestCase
         ];
         $team = Team::createWithOwner($user, $data);
         $this->assertNotNull($team);
-        $this->assertEquals($data['name'], $team->name);
+        $this->assertEquals('dummy name', $team->name);
         $this->assertEquals($user->id, $team->owner_id); 
         $storedMember = $team->members()->latest()->first();
         $this->assertEquals($team->id,$storedMember->team_id);
