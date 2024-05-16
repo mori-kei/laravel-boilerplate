@@ -20,10 +20,9 @@ class TeamTest extends TestCase
         $this->assertNotNull($team);
         $this->assertEquals($data['name'], $team->name);
         $this->assertEquals($user->id, $team->owner_id); 
-        $member = new Member();
-        $newestMember = $member->first();
-        $this->assertEquals($team->id,$newestMember->team_id);
-        $this->assertEquals($user->id,$newestMember->user_id);
-        $this->assertEquals(1,$newestMember->role);
+        $storedMember = $team->members()->latest()->first();
+        $this->assertEquals($team->id,$storedMember->team_id);
+        $this->assertEquals($user->id,$storedMember->user_id);
+        $this->assertEquals(1,$storedMember->role);
     }
 }
