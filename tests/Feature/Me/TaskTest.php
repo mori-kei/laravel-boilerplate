@@ -20,11 +20,11 @@ class MeTaskTest extends TestCase
         $response = $this->withHeaders(['Accept' => 'application/json'])->get('/api/me/tasks/');
         $response->assertStatus(200);
         $response->assertJsonCount(2);
-        $response->assertJson([0 => [
-            'assignee_id' => $user1->id]
+        $response->assertJson([
+            0 => ['assignee_id' => $user1->id]
         ]);
-        $response->assertJson([1 => [
-            'assignee_id' => $user1->id]
+        $response->assertJson([
+            1 => ['assignee_id' => $user1->id]
         ]);
     }
 }
