@@ -14,8 +14,8 @@ class MeTaskTest extends TestCase
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
         $team = Team::createWithOwner($user1,['name' =>'dummy name']);
-        Task::factory()->create(['assignee_id' => $user1->id,'team_id' => $team->id ]);
-        Task::factory()->create(['assignee_id' => $user1->id,'team_id' => $team->id ]);
+        $task1 =Task::factory()->create(['assignee_id' => $user1->id,'team_id' => $team->id ]);
+        $task2 =Task::factory()->create(['assignee_id' => $user1->id,'team_id' => $team->id ]);
         Task::factory()->create(['assignee_id' => $user2->id,'team_id' => $team->id ]);
         Task::factory()->create(['assignee_id' => $user2->id,'team_id' => $team->id ]);
         Sanctum::actingAs($user1);
@@ -23,10 +23,10 @@ class MeTaskTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonCount(2);
         $response->assertJson([
-            0 => ['assignee_id' => $user1->id]
+            0 => [ 'id' => $task1->id,'assignee_id' => $user1->id]
         ]);
         $response->assertJson([
-            1 => ['assignee_id' => $user1->id]
+            1 => ['id' => $task2->id,'assignee_id' => $user1->id]
         ]);
     }
 }
