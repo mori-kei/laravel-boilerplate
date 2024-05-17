@@ -33,5 +33,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->prefix('me')->group(function () {
-    Route::apiResource('/tasks', MeTaskController::class);
+    Route::apiResource('/tasks', MeTaskController::class, ['only' => 'index']);
 });
