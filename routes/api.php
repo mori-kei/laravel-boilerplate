@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum', 'ensureAdmin'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::apiResource('/tasks', TaskController::class);
+    Route::apiResource('/tasks', TaskController::class, ['only' => 'show']);
 });
 
 Route::middleware(['auth:sanctum'])->prefix('me')->group(function () {
