@@ -17,12 +17,10 @@ class TaskFactory extends Factory
      */
     public function definition()
     {
-        $team = Team::inRandomOrder()->first();
         return [
             'title' => fake()->text(),
             'body' => fake()->text(),
             'status' => 0,
-            'team_id' => $team->id,
         ];
     }
 }

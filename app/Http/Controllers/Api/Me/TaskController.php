@@ -13,7 +13,7 @@ class TaskController extends Controller
     public function index()
     {
         $current_user = Auth::user();
-        $tasks = Task::where('assignee_id',$current_user->id)->get();
+        $tasks = $current_user->assignedTasks;
         return response()->json($tasks,200);
     }
 }
