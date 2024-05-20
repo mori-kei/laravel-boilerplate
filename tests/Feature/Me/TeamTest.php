@@ -21,7 +21,7 @@ class MeTeamTest extends TestCase
         $teamUser1->team_id = $team2->id;
         $teamUser1->user_id = $user1->id;
         $teamUser1->save();
-        
+
         $response = $this->get('/api/me/teams');
         $response->assertStatus(200);
         $response->assertJsonCount(2);
@@ -32,7 +32,6 @@ class MeTeamTest extends TestCase
             'owner_id',
             'created_at',
             'updated_at',
-            'pivot',
             ]
         ]);
         $response->assertJson([0 => [
