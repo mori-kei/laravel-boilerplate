@@ -18,6 +18,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        return response()->json(['message' => 'Success'], 200);
+        $user = Auth::user();
+        return response()->json($user->ownTeams,200);
     }
 }
