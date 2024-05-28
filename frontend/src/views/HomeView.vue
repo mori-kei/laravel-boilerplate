@@ -25,6 +25,9 @@
           <td>
             {{mytask.created_at}}
           </td>
+          <td>
+            <router-link to="/">詳細</router-link>
+          </td>
         </tr>
     </tbody>
     </table>
