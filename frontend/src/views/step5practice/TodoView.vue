@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
+import {  ref } from 'vue'
 export default{
     name:'TodoView',
     setup(){
@@ -24,7 +24,11 @@ export default{
         const todo = ref("");
 
         const onSubmit = () => {
-            todos.value.push({  id: todos.value.length + 1,text:todo.value,done:false})
+            todos.value.push({  
+                id: todos.value.length + 1,
+                text:todo.value,
+                done:false
+            })
             todo.value= ""
         }
         const toggleDone = (id) => {
