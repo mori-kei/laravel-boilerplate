@@ -4,8 +4,8 @@
         <button v-on:click="onSubmit">登録</button>
         <ul>
             <li v-for="(todo, id) in todos" :key="id">
-                <input type="checkbox" v-model="todo.done" v-on:click="toggleDone(id)" v-show="!todo.done">
-                <span :class="{'done':todo.done}" v-on:click="todo.done==true ? toggleDone(id): null">{{todo.text}}</span>
+                <input type="checkbox" v-model="todo.done" v-on:click="toggleDone(todo.id)" v-show="!todo.done">
+                <span :class="{'done':todo.done}" v-on:click="todo.done==true ? toggleDone(todo.id): null">{{todo.text}}</span>
             </li>
         </ul> 
     </div>
@@ -32,7 +32,9 @@ export default{
             todo.value= ""
         }
         const toggleDone = (id) => {
-            todos.value[id].done = !todos.value[id].done
+            //[学習用]todoのidに一致する要素を返す
+            const todo = todos.value.find(todo => todo.id === id);
+            todo.done = !todo.done;
         }
         return{
             todos,
