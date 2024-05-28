@@ -5,6 +5,7 @@ import AdminUsersView from '../views/admin/users/IndexView.vue'
 import AdminUserEditView from '../views/admin/users/EditView.vue'
 import AdminUserCreateView from '../views/admin/users/CreateView.vue'
 
+import TodoView from '@/views/step5practice/TodoView.vue'
 const routes = [
   {
     path: '/',
@@ -44,7 +45,11 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+  },
+  {
+    path: '/todo',
+    component: TodoView
+  } 
 ]
 
 const router = createRouter({
