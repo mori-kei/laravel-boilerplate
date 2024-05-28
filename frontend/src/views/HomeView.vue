@@ -12,7 +12,7 @@
       </thead>
       <tbody >
         <tr v-for="mytask in mytasks" :key="mytask.id">
-          <td>  {{mytask.team_id}}</td>
+          <td>{{mytask.team_id}}</td>
           <td>
             {{mytask.id}}
           </td>
@@ -68,10 +68,9 @@ export default {
       myteams.value =res.data
     }
 
-    onMounted(() => {
-      fetchMyTasks();
-      fetchMyTeams();
-    })
+    onMounted(async () => {
+        Promise.all([fetchMyTasks(), fetchMyTeams()]);
+    });
     return {
       mytasks,
       myteams
