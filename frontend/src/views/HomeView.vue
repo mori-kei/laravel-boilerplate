@@ -11,7 +11,7 @@
         <th>操作</th>
       </thead>
       <tbody >
-        <tr v-for="(mytask, id) in mytasks" :key="id">
+        <tr v-for="mytask in mytasks" :key="mytask.id">
           <td>  {{mytask.team_id}}</td>
           <td>
             {{mytask.id}}
