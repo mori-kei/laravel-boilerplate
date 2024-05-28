@@ -4,8 +4,8 @@ import LoginView from '../views/LoginView.vue'
 import AdminUsersView from '../views/admin/users/IndexView.vue'
 import AdminUserEditView from '../views/admin/users/EditView.vue'
 import AdminUserCreateView from '../views/admin/users/CreateView.vue'
-
 import TodoView from '@/views/step5practice/TodoView.vue'
+import TaskShow from "../views/TaskShow.vue"
 const routes = [
   {
     path: '/',
@@ -49,7 +49,11 @@ const routes = [
   {
     path: '/todo',
     component: TodoView
-  } 
+  },
+  {
+    path: '/tasks/:id',
+    component:TaskShow
+  }
 ]
 
 const router = createRouter({
