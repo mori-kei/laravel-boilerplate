@@ -16,16 +16,13 @@ import { onMounted, ref } from 'vue'
 export default{
     name:'TodoView',
     setup(){
-        const todos = ref([]);
-        const todo = ref("");
-
-        onMounted(() => {
-            todos.value=[
+        const todos = ref([
             { id: 1, text: 'task1', done: false },
             { id: 2, text: 'task2', done: false },
             { id: 3, text: 'task3', done: false }
-            ]
-        })
+            ]);
+        const todo = ref("");
+
         const onSubmit = () => {
             todos.value.push({  id: todos.value.length + 1,text:todo.value,done:false})
             todo.value= ""
