@@ -53,8 +53,8 @@ import { onMounted, ref } from 'vue';
 export default {
   name: 'HomeView',
   setup(){
-    const mytasks = ref({})
-    const myteams = ref({})
+    const mytasks = ref([])
+    const myteams = ref([])
 
     const fetchMyTasks = async() => {
       const url = "http://localhost:8080/api/me/tasks"
