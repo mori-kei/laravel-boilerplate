@@ -73,7 +73,7 @@ export default {
     }
 
     onMounted(async () => {
-        Promise.all([fetchMyTasks(), fetchMyTeams()]);
+      await Promise.all([fetchMyTasks(), fetchMyTeams()]);
     });
     return {
       mytasks,
