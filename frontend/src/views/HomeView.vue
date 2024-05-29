@@ -33,8 +33,10 @@
     <h2>所属しているチーム</h2>
     <table>
       <thead >
-        <th>チームID</th>
-        <th>チーム名</th>
+        <tr>
+          <th>チームID</th>
+          <th>チーム名</th>
+        </tr>
       </thead>
       <tbody >
         <tr v-for="(myteam, id) in myteams" :key="id">
