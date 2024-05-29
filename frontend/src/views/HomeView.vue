@@ -3,16 +3,18 @@
     <h2>アサインされているタスク</h2>
     <table>
       <thead >
-        <th>チーム</th>
-        <th>タスクID</th>
-        <th>タイトル</th>
-        <th>担当者</th>
-        <th>作成日時</th>
-        <th>操作</th>
+        <tr>
+          <th>チーム</th>
+          <th>タスクID</th>
+          <th>タイトル</th>
+          <th>担当者</th>
+          <th>作成日時</th>
+          <th>操作</th>
+        </tr>
       </thead>
       <tbody >
-        <tr v-for="(mytask, id) in mytasks" :key="id">
-          <td>  {{mytask.team_id}}</td>
+        <tr v-for="mytask in mytasks" :key="mytask.id">
+          <td>{{mytask.team_id}}</td>
           <td>
             {{mytask.id}}
           </td>
@@ -34,8 +36,10 @@
     <h2>所属しているチーム</h2>
     <table>
       <thead >
-        <th>チームID</th>
-        <th>チーム名</th>
+        <tr>
+          <th>チームID</th>
+          <th>チーム名</th>
+        </tr>
       </thead>
       <tbody >
         <tr v-for="(myteam, id) in myteams" :key="id">
@@ -56,8 +60,8 @@ import { onMounted, ref } from 'vue';
 export default {
   name: 'HomeView',
   setup(){
-    const mytasks = ref({})
-    const myteams = ref({})
+    const mytasks = ref([])
+    const myteams = ref([])
 
     const fetchMyTasks = async() => {
       const url = "http://localhost:8080/api/me/tasks"
@@ -71,10 +75,9 @@ export default {
       myteams.value =res.data
     }
 
-    onMounted(() => {
-      fetchMyTasks();
-      fetchMyTeams();
-    })
+    onMounted(async () => {
+      await Promise.all([fetchMyTasks(), fetchMyTeams()]);
+    });
     return {
       mytasks,
       myteams
