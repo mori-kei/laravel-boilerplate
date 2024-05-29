@@ -1,9 +1,8 @@
 <template>
     <div>
-        <h2>/{{task.title }}</h2>
+        <h2>{{task.team_name }}/{{task.title }}</h2>
         <h3>内容</h3>
         <p>{{task.body }}</p>
-        {{ task }}
     </div>
 </template>
 <script>
@@ -21,7 +20,7 @@ export default {
         const fetchTask = async () => {
             const url = `http://localhost:8080/api/tasks/${id}`
             const res = await axios.get(url)
-            task.value = res.data
+            task.value = res.data.task
         }
         onMounted(async () => {
             await fetchTask()
