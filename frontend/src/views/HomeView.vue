@@ -3,12 +3,14 @@
     <h2>アサインされているタスク</h2>
     <table>
       <thead >
-        <th>チーム</th>
-        <th>タスクID</th>
-        <th>タイトル</th>
-        <th>担当者</th>
-        <th>作成日時</th>
-        <th>操作</th>
+        <tr>
+          <th>チーム</th>
+          <th>タスクID</th>
+          <th>タイトル</th>
+          <th>担当者</th>
+          <th>作成日時</th>
+          <th>操作</th>
+        </tr>
       </thead>
       <tbody >
         <tr v-for="mytask in mytasks" :key="mytask.id">
