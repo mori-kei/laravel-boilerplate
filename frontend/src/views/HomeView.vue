@@ -28,7 +28,7 @@
             {{mytask.created_at}}
           </td>
           <td>
-            <router-link :to="'/tasks/' + mytask.id">詳細</router-link>
+            <router-link :to="`/tasks/${mytask.id}`">詳細</router-link>
           </td>
         </tr>
     </tbody>
