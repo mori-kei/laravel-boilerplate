@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>{{task.team_name }}/{{task.title }}</h2>
+        <h2>{{team.name}}/{{task.title }}</h2>
         <h3>内容</h3>
         <p>{{task.body }}</p>
     </div>
@@ -14,6 +14,7 @@ export default {
     name:'TaskShow',
     setup() {
         const task = ref([]);
+        const team = ref([]);
         const route = useRoute();
         const id = route.params.id;
         console.log(id)
@@ -21,12 +22,15 @@ export default {
             const url = `http://localhost:8080/api/tasks/${id}`
             const res = await axios.get(url)
             task.value = res.data.task
+            team.value = res.data.task.team
+            console.log(res)
         }
         onMounted(async () => {
             await fetchTask()
         })
         return {
-            task
+            task,
+            team
         }
     },
 }
