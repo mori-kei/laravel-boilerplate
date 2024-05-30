@@ -35,6 +35,10 @@ class TaskTest extends TestCase
         $this->assertArrayHasKey('created_at', $json['task']);
         $this->assertArrayHasKey('updated_at', $json['task']);
         $this->assertArrayHasKey('id', $json['task']);
-        $this->assertEquals('dummy name', $json['task']['team_name']);
+        $this->assertEquals('dummy name', $json['task']['team']['name']);
+        $this->assertEquals($user->id, $json['task']['team']['owner_id']);
+        $this->assertArrayHasKey('created_at', $json['task']['team']);
+        $this->assertArrayHasKey('updated_at', $json['task']['team']);
+        $this->assertArrayHasKey('id', $json['task']['team']);
     }
 }
