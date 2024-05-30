@@ -22,7 +22,7 @@
             {{mytask.title}}
           </td>
           <td>
-            {{mytask.assignee_id}}
+            {{mytask.assigned_user.name}}
           </td>
           <td>
             {{mytask.created_at}}
@@ -67,6 +67,8 @@ export default {
       const url = "http://localhost:8080/api/me/tasks"
       const res = await axios.get(url)
       mytasks.value = res.data
+      //debug
+      console.log(mytasks)
     }
 
     const fetchMyTeams = async() => {
