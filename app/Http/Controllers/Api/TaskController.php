@@ -10,18 +10,9 @@ class TaskController extends Controller
 {
     public function show(Task $task)
     {
-        $teamName = $task->team->name;
+        $task->load('team');
         return response()->json([
-            'task' => [
-                'id' => $task->id,
-                'title' => $task->title,
-                'body' => $task->body,
-                'status' => $task->status,
-                'assignee_id' => $task->assignee_id,
-                'created_at' => $task->created_at->toDateTimeString(),
-                'updated_at' => $task->updated_at->toDateTimeString(),
-                'team_name' => $teamName
-            ],
+            'task' => $task
         ]);
     }
 }
