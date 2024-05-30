@@ -13,7 +13,7 @@ import { useRoute } from 'vue-router';
 export default {
     name:'TaskShow',
     setup() {
-        const task = ref([]);
+        const task = ref({});
         const route = useRoute();
         const id = route.params.id;
         const fetchTask = async () => {
