@@ -10,6 +10,9 @@ class TaskController extends Controller
 {
     public function show(Task $task)
     {
-        return response()->json($task);
+        $task->load('team');
+        return response()->json([
+            'task' => $task
+        ]);
     }
 }
