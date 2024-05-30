@@ -17,13 +17,11 @@ export default {
         const team = ref([]);
         const route = useRoute();
         const id = route.params.id;
-        console.log(id)
         const fetchTask = async () => {
             const url = `http://localhost:8080/api/tasks/${id}`
             const res = await axios.get(url)
             task.value = res.data.task
             team.value = res.data.task.team
-            console.log(res)
         }
         onMounted(async () => {
             await fetchTask()
