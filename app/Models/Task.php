@@ -15,5 +15,7 @@ class Task extends Model
     public function assignedUser(){
         return $this->belongsTo(User::class, 'assignee_id');
     }
-    
+    public function commments(){
+        return $this->hasMany(Comment::class);
+    }
 }
