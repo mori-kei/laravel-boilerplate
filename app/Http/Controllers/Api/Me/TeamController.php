@@ -18,6 +18,7 @@ class TeamController extends Controller
      */
     public function index()
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $joined_teams = $user->joinedTeams()->with(['members' => function($query) use ($user) {$query->where('user_id', $user->id);} ])
         ->get();
