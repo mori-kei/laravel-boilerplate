@@ -28,16 +28,25 @@ class MeTaskTest extends TestCase
                         'name' => $user1->name,
                     ],
                     'id' => $task1->id,
-                    'assignee_id' => $user1->id
+                    'assignee_id' => $user1->id,
+                    'team' => [
+                        'id' => $team->id,
+                        'name' => $team->name,
+                    ],
                 ]
         ]);
         $response->assertJson([
             1 => [
-                'assigned_user' => [
-                    'name' => $user1->name,
-                ],
-                'id' => $task2->id,
-                'assignee_id' => $user1->id]
+                    'assigned_user' => [
+                        'name' => $user1->name,
+                    ],
+                    'id' => $task2->id,
+                    'assignee_id' => $user1->id,
+                    'team' => [
+                        'id' => $team->id,
+                        'name' => $team->name,
+                    ],
+                ]
         ]);
         
         
