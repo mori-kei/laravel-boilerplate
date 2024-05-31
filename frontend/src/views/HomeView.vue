@@ -16,9 +16,9 @@
             <th>操作</th>
           </tr>
         </thead>
-        <tbody >
+        <tbody>
           <tr v-for="mytask in mytasks" :key="mytask.id">
-            <td>{{mytask.team_id}}</td>
+            <td>{{mytask.team.name}}</td>
             <td>
               {{mytask.id}}
             </td>
