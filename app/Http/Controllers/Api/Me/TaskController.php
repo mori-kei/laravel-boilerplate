@@ -13,7 +13,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-      ç
+        /** @var \App\Models\User $current_user */
         $current_user = Auth::user();
         $assigned_tasks = $current_user->assignedTasks()->with('assignedUser')->get();
         return response()->json($assigned_tasks,200);
