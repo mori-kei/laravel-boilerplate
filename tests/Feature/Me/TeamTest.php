@@ -35,10 +35,22 @@ class MeTeamTest extends TestCase
             ]
         ]);
         $response->assertJson([0 => [
+            'members' => [
+                [
+                    'role' => 1,
+                    'user_id' => $user1->id
+                ],
+            ],
             'id' => $team1->id,
             'name' => 'dummy name',
         ]]);
         $response->assertJson([1 => [
+            'members' => [
+                [
+                'role' => 0,
+                'user_id' => $user1->id
+                ],
+            ],
             'id' => $team2->id,
             'name' => 'dummy name2',
         ]]);
