@@ -93,7 +93,7 @@ export default {
         isLogin.value = true
       }catch(error){
         if (error.response && error.response.status === 401) {
-          isLogin.value(false)
+          isLogin.value = false
         }
       }
     });
