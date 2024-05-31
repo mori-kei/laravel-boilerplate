@@ -48,7 +48,5 @@ class MeTaskTest extends TestCase
                     ],
                 ]
         ]);
-        
-        
     }
 }

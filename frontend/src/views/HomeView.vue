@@ -79,7 +79,6 @@ export default {
       const url = "http://localhost:8080/api/me/tasks"
       const res = await axios.get(url)
       mytasks.value = res.data
-  
     }
 
     const fetchMyTeams = async() => {
