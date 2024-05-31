@@ -15,7 +15,7 @@ class TaskController extends Controller
     {
         /** @var \App\Models\User $current_user */
         $current_user = Auth::user();
-        $assigned_tasks = $current_user->assignedTasks()->with('assignedUser')->get();
+        $assigned_tasks = $current_user->assignedTasks()->with('assignedUser','team')->get();
         return response()->json($assigned_tasks,200);
     }
 }
