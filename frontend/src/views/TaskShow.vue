@@ -1,46 +1,82 @@
 <template>
-    <div>
+    <div class="parent">
+        <div v-if="task.status ===1" class="flash">
+            <p>このタスクは完了しました</p>
+        </div>
         <h2 v-if="task.team">{{task.team.name}}/{{task.title}}</h2>
-        <h3>内容</h3>
-        <p>{{task.body }}</p>
-        <h3>コメント</h3>
-        <div v-for="comment in comments" :key="comment.id">
-        <p>{{comment.message}}</p>
-        <p>{{comment.created_at}} by {{comment.authorname }}</p>
-</div>
+        <div class="content">
+            <h3>内容</h3>
+            <p>{{task.body }}</p>
+            <h3>コメント</h3>
+            <div v-for="comment in comments" :key="comment.id" class="comment">
+                <p>{{comment.message}}</p>
+                <p>{{comment.created_at}} by {{comment.authorname }}</p>
+            </div>
+            <p>本文</p>
+            <textarea v-model="message" class="comment_txt"></textarea>
+            <p v-if="task && task.status === 0">完了報告とする<input type="checkbox" v-model="kind"></p>
+            <button v-on:click="createCommment" class="btn btn-primary">送信</button>
+        </div>
     </div>
 </template>
-<script>
+<script setup>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-export default {
-    name:'TaskShow',
-    setup() {
-        const task = ref({});
-        const comments = ref({})
-        const route = useRoute();
-        const id = route.params.id;
-        const fetchTask = async () => {
-            const url = `http://localhost:8080/api/tasks/${id}`
-            const res = await axios.get(url)
-            task.value = res.data.task
-        }
-        const fetchComments = async () => {
-            const url = `http://localhost:8080/api/tasks/${id}/comments`
-            const res = await axios.get(url)
-            comments.value = res.data.comments
-            console.log(comments)
-        }
-        onMounted(async () => {
-            await fetchTask()
-            await fetchComments()
-        })
-        return {
-            task,
-            comments
-        }
-    },
+const task = ref({});
+const comments = ref({})
+const message = ref("")
+const kind = ref(false)
+const route = useRoute();
+const id = route.params.id;
+const fetchTask = async () => {
+    const url = `http://localhost:8080/api/tasks/${id}`
+    const res = await axios.get(url)
+    task.value = res.data.task
+    console.log(task)
 }
+const fetchComments = async () => {
+    const url = `http://localhost:8080/api/tasks/${id}/comments`
+    const res = await axios.get(url)
+    comments.value = res.data.comments
+}
+const createCommment = async () => {
+    const url = `http://localhost:8080/api/tasks/${id}/comments`
+    const res = await axios.post(url,{
+        message:message.value,
+        kind:kind.value ? 1: 0,
+    })
+    comments.value.push(res.data[0])
+    message.value=""
+}
+
+onMounted(async () => {
+    await fetchTask()
+    await fetchComments()
+})
+
+
 </script>
+<style scoped>
+.parent{
+    background-color: #F8F9FA;
+    padding: 5px;
+}
+.flash {
+    background-color: #CEF4FC;
+    color: #115160;
+    padding: 5px;
+    border-radius: 5px
+}
+.content{
+    width: 80%;
+    margin: 0 auto;
+}
+.comment{
+    border-bottom: #333 solid 1px;
+}
+.comment_txt{
+    width: 100%;
+}
+</style>

@@ -75,6 +75,7 @@ export default {
     const mytasks = ref([])
     const myteams = ref([])
     const isLogin = ref(false)
+
     const fetchMyTasks = async() => {
       const url = "http://localhost:8080/api/me/tasks"
       const res = await axios.get(url)
