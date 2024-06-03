@@ -8,6 +8,7 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\CssSelector\Parser\Handler\CommentHandler;
 
 class CommentController extends Controller
@@ -64,17 +65,19 @@ class CommentController extends Controller
         $validated = $request->validate([
             'message' => 'required|max:50'
         ]);
-
-        $comment = new Comment($validated);
-        $comment->task_id = $task->id;
-        $comment->author_id = $user->id;
-        $comment->kind = $request->input('kind');
-        $comment->save();
-        $comment->authorname = $user->name; 
-        if($comment->kind == 1){
-            $task->status = 1;
-            $task->save();
-        }
+        $comment = DB::transaction(function()use($user,$validated,$task,$request){
+            $comment = new Comment($validated);
+            $comment->task_id = $task->id;
+            $comment->author_id = $user->id;
+            $comment->kind = $request->input('kind');
+            $comment->save();
+            $comment->authorname = $user->name; 
+            if($comment->kind == 1){
+                $task->status = 1;
+                $task->save();
+            }
+            return $comment;
+        });
         return response()->json([$comment], 200);
     }
 
