@@ -63,21 +63,10 @@ class CommentController extends Controller
     {
         $user = Auth::user();
         $validated = $request->validate([
-            'message' => 'required|max:50'
+            'message' => 'required|max:50',
+            'kind' =>''
         ]);
-        $comment = DB::transaction(function()use($user,$validated,$task,$request){
-            $comment = new Comment($validated);
-            $comment->task_id = $task->id;
-            $comment->author_id = $user->id;
-            $comment->kind = $request->input('kind');
-            $comment->save();
-            $comment->authorname = $user->name; 
-            if($comment->kind == 1){
-                $task->status = 1;
-                $task->save();
-            }
-            return $comment;
-        });
+        $comment = Comment::storeComment($user,$validated,$task);
         return response()->json([$comment], 200);
     }
 
