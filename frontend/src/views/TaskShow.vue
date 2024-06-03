@@ -14,11 +14,13 @@
             </div>
             <p>本文</p>
             <textarea v-model="message" class="comment_txt"></textarea>
+            <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
             <p v-if="task && task.status === 0">完了報告とする<input type="checkbox" v-model="kind"></p>
-            <button v-on:click="createCommment" class="btn btn-primary">送信</button>
+            <button v-on:click="createComment" class="btn btn-primary">送信</button>
         </div>
     </div>
 </template>
+
 <script setup>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
@@ -29,6 +31,7 @@ const comments = ref({})
 const message = ref("")
 const kind = ref(false)
 const route = useRoute();
+const errorMessage = ref("");
 const id = route.params.id;
 const fetchTask = async () => {
     const url = `http://localhost:8080/api/tasks/${id}`
@@ -41,15 +44,23 @@ const fetchComments = async () => {
     const res = await axios.get(url)
     comments.value = res.data.comments
 }
-const createCommment = async () => {
-    const url = `http://localhost:8080/api/tasks/${id}/comments`
-    const res = await axios.post(url,{
-        message:message.value,
-        kind:kind.value ? 1: 0,
-    })
-    comments.value.push(res.data[0])
-    message.value=""
-}
+const createComment = async () => {
+    try {
+        const url = `http://localhost:8080/api/tasks/${id}/comments`;
+        const res = await axios.post(url, {
+            message: message.value,
+            kind: kind.value ? 1 : 0,
+        });
+        comments.value.push(res.data[0]);
+        message.value = "";
+    } catch (error) {
+        if (error.response && error.response.status === 422) {
+            const validationErrors = error.response.data.errors;
+            const errorMessages = Object.values(validationErrors)
+            errorMessage.value = errorMessages.join(', '); 
+        }
+    }
+};
 
 onMounted(async () => {
     await fetchTask()
@@ -78,5 +89,8 @@ onMounted(async () => {
 }
 .comment_txt{
     width: 100%;
+}
+.error-message{
+    color: red;
 }
 </style>
