@@ -1,6 +1,9 @@
 <template>
     <div >
-        <div class="parent" v-if="isLogin">
+        <div v-if="status ===0">
+            <p>Loading...</p>
+        </div>
+        <div class="parent" v-else-if="status===1" >
             <div v-if="task.status ===1" class="finish">
                 <p>このタスクは完了しました</p>
             </div>
@@ -20,8 +23,8 @@
                 <button v-on:click="createComment" class="btn btn-primary">送信</button>
             </div>
         </div>
-        <div v-else>
-            aaa
+        <div v-else-if="status===2">
+            <p>ログインしてください</p>
         </div>
     </div>
 </template>
@@ -30,7 +33,7 @@
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-const isLogin = ref(false)
+const status = ref(0)
 const task = ref({});
 const comments = ref({})
 const message = ref("")
@@ -72,9 +75,9 @@ onMounted(async () => {
         const [taskData, commentsData] = await Promise.all([fetchTask(), fetchComments()]);
         task.value = taskData;
         comments.value = commentsData;
-        isLogin.value = true
+        status.value = 1
     } catch (error) {
-        isLogin.value = false
+        status.value = 2
     }
 })
 
