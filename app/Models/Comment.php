@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class Comment extends Model
 {
-    protected $fillable = ['message','kind','task_id','author_id'];
+    protected $fillable = ['message','kind'];
     use HasFactory;
     public function task(){
         return $this->belongsTo(Task::class);
