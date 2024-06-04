@@ -14,7 +14,7 @@
                 <h3>コメント</h3>
                 <div v-for="comment in comments" :key="comment.id" class="comment">
                     <p>{{comment.message}}</p>
-                    <p>{{comment.created_at}} by {{comment.authorname }}</p>
+                    <p>{{formatDate(comment.created_at)}} by {{comment.authorname }}</p>
                 </div>
                 <p>本文</p>
                 <textarea v-model="message" class="comment_txt"></textarea>
@@ -69,7 +69,19 @@ const createComment = async () => {
         }
     }
 };
-
+const formatDate =(originalDate) => {
+    const date = new Date(originalDate);
+    const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    };
+    const formattedDate = date.toLocaleDateString('ja-JP', options).replace(/\//g, '-');
+    return formattedDate;
+}
 onMounted(async () => {
     try {
         const [taskData, commentsData] = await Promise.all([fetchTask(), fetchComments()]);
