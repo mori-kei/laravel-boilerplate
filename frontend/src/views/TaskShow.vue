@@ -84,6 +84,18 @@ onMounted(async () => {
 
 </script>
 <style scoped>
+h3{
+    font-size: 24px;
+    font-weight: normal;
+}
+button{
+    background-color: #0C6DFD;
+    border: none;
+    border-radius: 2px;
+    width: 60px;
+    height: 30px;
+    color: #fff;
+}
 .parent{
     background-color: #F8F9FA;
     padding: 5px;
