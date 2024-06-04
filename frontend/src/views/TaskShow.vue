@@ -20,7 +20,7 @@
                 <textarea v-model="message" class="comment_txt"></textarea>
                 <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
                 <p v-if="task && task.status === 0">完了報告とする<input type="checkbox" v-model="kind"></p>
-                <button v-on:click="createComment" class="btn btn-primary">送信</button>
+                <button v-on:click="createComment" class="btn-primary">送信</button>
             </div>
         </div>
         <div v-else-if="status===2">
@@ -100,7 +100,7 @@ h3{
     font-size: 24px;
     font-weight: normal;
 }
-button{
+.btn-primary{
     background-color: #0C6DFD;
     border: none;
     border-radius: 2px;
