@@ -34,13 +34,12 @@ Route::middleware(['auth:sanctum', 'ensureAdmin'])->group(function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/tasks', TaskController::class, ['only' => 'show']);
+    Route::prefix('/tasks/{task}')->group(function () {
+        Route::get('/comments', [CommentController::class, 'index']);
+        Route::post('/comments', [CommentController::class, 'store']);
+    });
 });
 Route::middleware(['auth:sanctum'])->prefix('me')->group(function () {
     Route::apiResource('/tasks', MeTaskController::class, ['only' => 'index']);
     Route::apiResource('/teams', TeamController::class, ['only' => 'index']);
-});
-
-Route::prefix('/tasks/{task}')->group(function () {
-    Route::get('/comments', [CommentController::class, 'index']);
-    Route::post('/comments', [CommentController::class, 'store']);
 });
