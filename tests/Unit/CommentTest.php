@@ -35,7 +35,6 @@ class CommentTest extends TestCase
         $anotherDummyTask->team_id = $team->id;
         $dummytask->save();
         $anotherDummyTask->save();
-
         $commentData =  [
             'message' => 'dummy message',
             'kind' =>'0'

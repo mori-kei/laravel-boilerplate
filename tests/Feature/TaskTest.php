@@ -7,9 +7,11 @@ use App\Models\Team;
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TaskTest extends TestCase
 {
+    use RefreshDatabase;
     public function test_show_task(){
         $user = User::factory()->create();
         $dummytask = new Task([
