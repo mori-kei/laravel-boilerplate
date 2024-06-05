@@ -47,16 +47,16 @@ class CommentTest extends TestCase
     public function test_store_comment(){
         $user = User::factory()->create();
         //コメントに紐づけるtask,teamを作成
+        $data = [
+            'name' => 'dummy name',
+        ];
+        $team = Team::createWithOwner($user,$data);
         $dummytask = new Task([
             'title' => 'dummy title',
             'body' => 'dummy body',
             'status' => 0,
             'assignee_id' => null,
         ]);
-        $data = [
-            'name' => 'dummy name',
-        ];
-        $team = Team::createWithOwner($user,$data);
         $dummytask->team_id = $team->id;
         $dummytask->save();
         $commentData =  [
@@ -73,5 +73,37 @@ class CommentTest extends TestCase
         $this->assertEquals(0,$newComment->kind);
         $this->assertEquals($user->id,$newComment->author_id);
         $this->assertEquals($dummytask->id,$newComment->task_id);
+    }
+    public function test_store_comment_updateTaskStatus(){
+        $user = User::factory()->create();
+        //コメントに紐づけるtask,teamを作成
+        $data = [
+            'name' => 'dummy name',
+        ];
+        $team = Team::createWithOwner($user,$data);
+        $dummytask = new Task([
+            'title' => 'dummy title',
+            'body' => 'dummy body',
+            'status' => 0,
+            'assignee_id' => null,
+        ]);
+        $dummytask->team_id = $team->id;
+        $dummytask->save();
+        $commentData =  [
+            'message' => 'dummy message',
+            'kind' =>'1'
+        ];
+        Sanctum::actingAs($user);
+        $response = $this->withHeaders(['Accept' => 'application/json'])->postJson('/api/tasks/' . $dummytask->id. '/comments', $commentData);
+        $response->assertStatus(200);
+        $newComment = Comment::first();
+        $finishedTask = Task::where('id', $dummytask->id)->first();
+        $json = $response->decodeResponseJson();
+        $this->assertArrayHasKey('id',$json);
+        $this->assertEquals('dummy message',$newComment->message);
+        $this->assertEquals(1,$newComment->kind);
+        $this->assertEquals($user->id,$newComment->author_id);
+        $this->assertEquals($dummytask->id,$newComment->task_id);
+        $this->assertEquals(1,$finishedTask->status);
     }
 }
