@@ -31,6 +31,7 @@ class CommentTest extends TestCase
         $dummytask->save();
         //dummyのコメントを作成
         $comment = Comment::factory()->create([
+            'message' => 'dummy comment',
             'author_id' => $user->id,
             'task_id' => $dummytask->id,
             'kind' => '0'
@@ -40,10 +41,10 @@ class CommentTest extends TestCase
         $response->assertStatus(200);
         $json = $response->decodeResponseJson();
         $this->assertEquals($comment->id,$json['comments'][0]['id']);
-        $this->assertEquals($comment->message,$json['comments'][0]['message']);
-        $this->assertEquals($comment->kind,$json['comments'][0]['kind']);
-        $this->assertEquals($comment->author_id,$json['comments'][0]['author_id']);
-        $this->assertEquals($comment->task_id,$json['comments'][0]['task_id']);
+        $this->assertEquals('dummy comment',$json['comments'][0]['message']);
+        $this->assertEquals(0,$json['comments'][0]['kind']);
+        $this->assertEquals($user->id,$json['comments'][0]['author_id']);
+        $this->assertEquals($dummytask->id,$json['comments'][0]['task_id']);
     }
     
     public function test_store_comment(){
