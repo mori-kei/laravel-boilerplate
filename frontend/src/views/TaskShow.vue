@@ -77,9 +77,8 @@ const formatDate =(originalDate) => {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit'
-    };
-    const formattedDate = date.toLocaleDateString('ja-JP', options).replace(/\//g, '-');
-    return formattedDate;
+    }
+    return date.toLocaleDateString('ja-JP', options).replace(/\//g, '-');
 }
 onMounted(async () => {
     try {
