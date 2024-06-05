@@ -69,10 +69,9 @@ class CommentTest extends TestCase
         $newComment = Comment::first();
         $json = $response->decodeResponseJson();
         $this->assertArrayHasKey('id',$json);
-        $this->assertEquals($newComment->message,'dummy message');
-        $this->assertEquals($newComment->kind,0);
-        $this->assertEquals($newComment->author_id,$user->id);
-        $this->assertEquals($newComment->task_id,$dummytask->id);
-        
+        $this->assertEquals('dummy message',$newComment->message);
+        $this->assertEquals(0,$newComment->kind);
+        $this->assertEquals($user->id,$newComment->author_id);
+        $this->assertEquals($dummytask->id,$newComment->task_id);
     }
 }
