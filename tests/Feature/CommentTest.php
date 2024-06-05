@@ -131,7 +131,7 @@ class CommentTest extends TestCase
         $response->assertStatus(422);
         $response->assertJson(['message' => 'messageは必須です。']);
     }
-    public function test_store_validate_max_length_30(){
+    public function test_store_validate_max_length_50(){
         $user = User::factory()->create();
         //コメントに紐づけるtask,teamを作成
         $data = [
