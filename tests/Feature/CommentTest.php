@@ -17,16 +17,13 @@ class CommentTest extends TestCase
     public function test_index_comment(){
         $user = User::factory()->create();
         //コメントに紐づけるtask,teamを作成
+        $team = Team::createWithOwner($user,['name' => 'dummy name',]);
         $dummytask = new Task([
             'title' => 'dummy title',
             'body' => 'dummy body',
             'status' => 0,
             'assignee_id' => null,
         ]);
-        $data = [
-            'name' => 'dummy name',
-        ];
-        $team = Team::createWithOwner($user,$data);
         $dummytask->team_id = $team->id;
         $dummytask->save();
         //dummyのコメントを作成
