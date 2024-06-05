@@ -21,6 +21,28 @@ class CommentTest extends TestCase
             'status' => 0,
             'assignee_id' => null,
         ]);
+        $data = [
+            'name' => 'dummy name',
+        ];
+        $team =Team::createWithOwner($user,$data);
+        $dummytask->team_id = $team->id;
+       
+        $dummytask->save();
+
+        $commentData =  [
+            'message' => 'dummy message',
+            'kind' =>'0'
+        ];
+        $comment = Comment::storeComment($user,$commentData,$dummytask);
+        $this->assertNotNull($comment);
+        $this->assertEquals('dummy message',$comment->message);
+        $this->assertEquals(0,$comment->kind);
+        $this->assertEquals(0,$dummytask->status);
+       
+    }
+
+    public function test_updateTaskStatus(){
+        $user = User::factory()->create();
         $anotherDummyTask =new Task([
             'title' => 'dummy title2',
             'body' => 'dummy body2',
@@ -31,24 +53,13 @@ class CommentTest extends TestCase
             'name' => 'dummy name',
         ];
         $team =Team::createWithOwner($user,$data);
-        $dummytask->team_id = $team->id;
         $anotherDummyTask->team_id = $team->id;
-        $dummytask->save();
         $anotherDummyTask->save();
-        $commentData =  [
-            'message' => 'dummy message',
-            'kind' =>'0'
-        ];
         $anotherCommentData =  [
             'message' => 'dummy message2',
             'kind' =>'1'
         ];
-        $comment = Comment::storeComment($user,$commentData,$dummytask);
-        $finishedComment = Comment::storeComment($user,$anotherCommentData,$anotherDummyTask);
-        $this->assertNotNull($comment);
-        $this->assertEquals('dummy message',$comment->message);
-        $this->assertEquals(0,$comment->kind);
-        $this->assertEquals(0,$dummytask->status);
+        Comment::storeComment($user,$anotherCommentData,$anotherDummyTask);
         $this->assertEquals(1,$anotherDummyTask->status);
     }
 }
