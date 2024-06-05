@@ -42,18 +42,18 @@ const route = useRoute();
 const errorMessage = ref("");
 const id = route.params.id;
 const fetchTask = async () => {
-    const url = `http://localhost:8080/api/tasks/${id}`
+    const url = `/api/tasks/${id}`
     const res = await axios.get(url)
     return res.data.task;
 }
 const fetchComments = async () => {
-    const url = `http://localhost:8080/api/tasks/${id}/comments`
+    const url = `/api/tasks/${id}/comments`
     const res = await axios.get(url)
     return res.data.comments;
 }
 const createComment = async () => {
     try {
-        const url = `http://localhost:8080/api/tasks/${id}/comments`;
+        const url = `/api/tasks/${id}/comments`;
         const res = await axios.post(url, {
             message: message.value,
             kind: kind.value ? 1 : 0,
