@@ -58,8 +58,7 @@ const createComment = async () => {
             message: message.value,
             kind: kind.value ? 1 : 0,
         });
-        comments.value.push(res.data[0]);
-        console.log(res.data[0]);
+        comments.value.push(res.data);
         message.value = "";
     } catch (error) {
         if (error.response && error.response.status === 422) {
