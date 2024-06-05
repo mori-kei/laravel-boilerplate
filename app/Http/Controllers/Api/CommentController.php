@@ -55,6 +55,7 @@ class CommentController extends Controller
             'kind' =>''
         ]);
         $comment = Comment::storeComment($user,$validated,$task);
+        $comment->authorname =$user->name;
         return response()->json([$comment], 200);
     }
 }

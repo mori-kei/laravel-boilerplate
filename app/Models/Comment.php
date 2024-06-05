@@ -22,7 +22,6 @@ class Comment extends Model
             $comment->task_id = $task->id;
             $comment->author_id = $user->id;
             $comment->save();
-            $comment->authorname = $user->name; 
             if($comment->kind == 1){
                 $task->status = 1;
                 $task->save();
