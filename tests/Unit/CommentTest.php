@@ -11,8 +11,7 @@ use Tests\TestCase;
 
 class CommentTest extends TestCase
 {
-    public function test_storeComment()
-    {
+    public function test_storeComment(){
         $user = User::factory()->create();
         //コメントに紐づけるTask(完了,未完了),Teamを作成
         $dummytask = new Task([
@@ -26,9 +25,7 @@ class CommentTest extends TestCase
         ];
         $team =Team::createWithOwner($user,$data);
         $dummytask->team_id = $team->id;
-       
         $dummytask->save();
-
         $commentData =  [
             'message' => 'dummy message',
             'kind' =>'0'
@@ -38,12 +35,11 @@ class CommentTest extends TestCase
         $this->assertEquals('dummy message',$comment->message);
         $this->assertEquals(0,$comment->kind);
         $this->assertEquals(0,$dummytask->status);
-       
     }
 
     public function test_updateTaskStatus(){
         $user = User::factory()->create();
-        $anotherDummyTask =new Task([
+        $dummyTask =new Task([
             'title' => 'dummy title2',
             'body' => 'dummy body2',
             'status' => 1,
@@ -53,13 +49,13 @@ class CommentTest extends TestCase
             'name' => 'dummy name',
         ];
         $team =Team::createWithOwner($user,$data);
-        $anotherDummyTask->team_id = $team->id;
-        $anotherDummyTask->save();
-        $anotherCommentData =  [
+        $dummyTask->team_id = $team->id;
+        $dummyTask->save();
+        $commentData =  [
             'message' => 'dummy message2',
             'kind' =>'1'
         ];
-        Comment::storeComment($user,$anotherCommentData,$anotherDummyTask);
-        $this->assertEquals(1,$anotherDummyTask->status);
+        Comment::storeComment($user,$commentData,$dummyTask);
+        $this->assertEquals(1,$dummyTask->status);
     }
 }
