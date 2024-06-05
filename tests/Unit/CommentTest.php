@@ -38,7 +38,7 @@ class CommentTest extends TestCase
     }
 
 
-    public function test_updateTaskStatus(){
+    public function test_storeCommentAndUpdateStatus(){
         $user = User::factory()->create();
          //コメントに紐づけるTask,Teamを作成
         $dummyTask =new Task([
@@ -57,7 +57,10 @@ class CommentTest extends TestCase
             'message' => 'dummy message2',
             'kind' =>'1'
         ];
-        Comment::storeComment($user,$commentData,$dummyTask);
+        $comment = Comment::storeComment($user,$commentData,$dummyTask);
+        $this->assertNotNull($comment);
+        $this->assertEquals('dummy message2',$comment->message);
+        $this->assertEquals(1,$comment->kind);
         $this->assertEquals(1,$dummyTask->status);
     }
 }
