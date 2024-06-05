@@ -66,7 +66,7 @@ class CommentTest extends TestCase
         Sanctum::actingAs($user);
         $response = $this->withHeaders(['Accept' => 'application/json'])->postJson('/api/tasks/' . $dummytask->id. '/comments', $commentData);
         $response->assertStatus(200);
-        $newComment = Comment::first();
+        $newComment = Comment::latest()->first();
         $json = $response->decodeResponseJson();
         $this->assertArrayHasKey('id',$json);
         $this->assertEquals('dummy message',$newComment->message);
@@ -96,8 +96,8 @@ class CommentTest extends TestCase
         Sanctum::actingAs($user);
         $response = $this->withHeaders(['Accept' => 'application/json'])->postJson('/api/tasks/' . $dummytask->id. '/comments', $commentData);
         $response->assertStatus(200);
-        $newComment = Comment::first();
-        $finishedTask = Task::where('id', $dummytask->id)->first();
+        $newComment = Comment::latest()->first();
+        $finishedTask = $dummytask->refresh();
         $json = $response->decodeResponseJson();
         $this->assertArrayHasKey('id',$json);
         $this->assertEquals('dummy message',$newComment->message);
