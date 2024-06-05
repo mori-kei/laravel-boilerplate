@@ -57,6 +57,9 @@ class User extends Authenticatable
     public function joinedTeams(){
         return $this->belongsToMany(Team::class,'members');
     }
+    public function comments(){
+        return $this->hasMany(Comment::class,'author_id');
+    }
     public function isAdmin()
     {
         return $this->role == UserRole::Admin;

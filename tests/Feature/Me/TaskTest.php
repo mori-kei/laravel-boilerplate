@@ -7,9 +7,11 @@ use App\Models\Team;
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MeTaskTest extends TestCase
 {
+    use RefreshDatabase;
     public function test_index_task(){
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();

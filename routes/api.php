@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
@@ -7,6 +8,8 @@ use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\Me\TaskController as MeTaskController;
 use App\Http\Controllers\Api\Me\TeamController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,8 +34,8 @@ Route::middleware(['auth:sanctum', 'ensureAdmin'])->group(function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/tasks', TaskController::class, ['only' => 'show']);
+    Route::apiResource('/tasks.comments', CommentController::class);
 });
-
 Route::middleware(['auth:sanctum'])->prefix('me')->group(function () {
     Route::apiResource('/tasks', MeTaskController::class, ['only' => 'index']);
     Route::apiResource('/teams', TeamController::class, ['only' => 'index']);

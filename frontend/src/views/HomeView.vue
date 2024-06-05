@@ -75,14 +75,15 @@ export default {
     const mytasks = ref([])
     const myteams = ref([])
     const isLogin = ref(false)
+
     const fetchMyTasks = async() => {
-      const url = "http://localhost:8080/api/me/tasks"
+      const url = "/api/me/tasks"
       const res = await axios.get(url)
       mytasks.value = res.data
     }
 
     const fetchMyTeams = async() => {
-      const url = "http://localhost:8080/api/me/teams"
+      const url = "/api/me/teams"
       const res = await axios.get(url)
       myteams.value =res.data
     }
