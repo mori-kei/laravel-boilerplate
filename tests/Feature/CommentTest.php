@@ -30,11 +30,11 @@ class CommentTest extends TestCase
         $dummytask->team_id = $team->id;
         $dummytask->save();
         //dummyのコメントを作成
-        $commentData =  [
-            'message' => 'dummy message',
-            'kind' =>'0',
-        ];
-        $comment = Comment::storeComment($user,$commentData,$dummytask);
+        $comment = Comment::factory()->create([
+            'author_id' => $user->id,
+            'task_id' => $dummytask->id,
+            'kind' => '0'
+        ]);
         Sanctum::actingAs($user);
         $response = $this->withHeaders(['Accept' => 'application/json'])->get('/api/tasks/' . $dummytask->id. '/comments');
         $response->assertStatus(200);
