@@ -106,4 +106,53 @@ class CommentTest extends TestCase
         $this->assertEquals($dummytask->id,$newComment->task_id);
         $this->assertEquals(1,$finishedTask->status);
     }
+
+    public function test_store_validate_null(){
+        $user = User::factory()->create();
+        //コメントに紐づけるtask,teamを作成
+        $data = [
+            'name' => 'dummy name',
+        ];
+        $team = Team::createWithOwner($user,$data);
+        $dummytask = new Task([
+            'title' => 'dummy title',
+            'body' => 'dummy body',
+            'status' => 0,
+            'assignee_id' => null,
+        ]);
+        $dummytask->team_id = $team->id;
+        $dummytask->save();
+        $commentData =  [
+            'message' => '',
+            'kind' =>'0'
+        ];
+        Sanctum::actingAs($user);
+        $response = $this->withHeaders(['Accept' => 'application/json'])->postJson('/api/tasks/' . $dummytask->id. '/comments', $commentData);
+        $response->assertStatus(422);
+        $response->assertJson(['message' => 'messageは必須です。']);
+    }
+    public function test_store_validate_max_length_30(){
+        $user = User::factory()->create();
+        //コメントに紐づけるtask,teamを作成
+        $data = [
+            'name' => 'dummy name',
+        ];
+        $team = Team::createWithOwner($user,$data);
+        $dummytask = new Task([
+            'title' => 'dummy title',
+            'body' => 'dummy body',
+            'status' => 0,
+            'assignee_id' => null,
+        ]);
+        $dummytask->team_id = $team->id;
+        $dummytask->save();
+        $commentData =  [
+            'message' => str_repeat('a', 51),
+            'kind' =>'0'
+        ];
+        Sanctum::actingAs($user);
+        $response = $this->withHeaders(['Accept' => 'application/json'])->postJson('/api/tasks/' . $dummytask->id. '/comments', $commentData);
+        $response->assertStatus(422);
+        $response->assertJson(['message' => 'messageは50文字を超えてはいけません。']);
+    }
 }
