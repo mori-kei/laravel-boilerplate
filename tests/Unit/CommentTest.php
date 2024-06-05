@@ -13,7 +13,7 @@ class CommentTest extends TestCase
 {
     public function test_storeComment(){
         $user = User::factory()->create();
-        //コメントに紐づけるTask(完了,未完了),Teamを作成
+        //コメントに紐づけるTask,Teamを作成
         $dummytask = new Task([
             'title' => 'dummy title',
             'body' => 'dummy body',
@@ -37,8 +37,10 @@ class CommentTest extends TestCase
         $this->assertEquals(0,$dummytask->status);
     }
 
+
     public function test_updateTaskStatus(){
         $user = User::factory()->create();
+         //コメントに紐づけるTask,Teamを作成
         $dummyTask =new Task([
             'title' => 'dummy title2',
             'body' => 'dummy body2',
