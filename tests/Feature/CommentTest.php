@@ -70,7 +70,7 @@ class CommentTest extends TestCase
         $response->assertStatus(200);
         $newComment = Comment::first();
         $json = $response->decodeResponseJson();
-        $this->assertArrayHasKey('id',$json[0]);
+        $this->assertArrayHasKey('id',$json);
         $this->assertEquals($newComment->message,'dummy message');
         $this->assertEquals($newComment->kind,0);
         $this->assertEquals($newComment->author_id,$user->id);
