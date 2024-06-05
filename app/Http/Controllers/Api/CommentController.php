@@ -16,27 +16,26 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
-{
-    $comments = Comment::with('author')->where('task_id', $id)->get();
-    $commentsWithAuthorname = $comments->map(function ($comment) {
-        $author_name = $comment->author ? $comment->author->name : null;
-        return [
-            'id' => $comment->id,
-            'created_at' => $comment->created_at,
-            'updated_at' => $comment->updated_at,
-            'task_id' => $comment->task_id,
-            'author_id' => $comment->author_id,
-            'authorname' => $author_name,
-            'message' => $comment->message,
-            'kind' => $comment->kind
-        ];
-    });
-    
-    return response()->json([
-        'comments' => $commentsWithAuthorname
-    ]);
-}
+    public function index($id){
+        $comments = Comment::with('author')->where('task_id', $id)->get();
+        $commentsWithAuthorname = $comments->map(function ($comment) {
+            $author_name = $comment->author ? $comment->author->name : null;
+            return [
+                'id' => $comment->id,
+                'created_at' => $comment->created_at,
+                'updated_at' => $comment->updated_at,
+                'task_id' => $comment->task_id,
+                'author_id' => $comment->author_id,
+                'authorname' => $author_name,
+                'message' => $comment->message,
+                'kind' => $comment->kind
+            ];
+        });
+        
+        return response()->json([
+            'comments' => $commentsWithAuthorname
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
