@@ -19,7 +19,7 @@
                 <p>本文</p>
                 <textarea v-model="message" class="comment_txt"></textarea>
                 <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-                <p v-if="task && task.status === 0">完了報告とする<input type="checkbox" v-model="kind"></p>
+                <p v-if="task.status === 0">完了報告とする<input type="checkbox" v-model="kind"></p>
                 <button v-on:click="createComment" class="btn-primary">送信</button>
             </div>
         </div>
@@ -35,7 +35,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 const status = ref(0)
 const task = ref({});
-const comments = ref({})
+const comments = ref([])
 const message = ref("")
 const kind = ref(false)
 const route = useRoute();
