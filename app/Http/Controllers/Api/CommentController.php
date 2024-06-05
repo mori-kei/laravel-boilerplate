@@ -18,12 +18,9 @@ class CommentController extends Controller
      */
     public function index($id)
 {
-    $comments = Comment::where('task_id', $id)->get();
-
+    $comments = Comment::with('author')->where('task_id', $id)->get();
     $commentsWithAuthorname = $comments->map(function ($comment) {
-        $user = User::find($comment->author_id);
-        $author_name = $user ? $user->name : null;
-
+        $author_name = $comment->author ? $comment->author->name : null;
         return [
             'id' => $comment->id,
             'created_at' => $comment->created_at,
