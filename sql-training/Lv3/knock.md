@@ -26,7 +26,9 @@ GROUP BY tasks.id;
 4. **特定のユーザーがアサインされているタスクの詳細と、そのタスクのコメントを取得するクエリを書いてください。**
 
 ```sql
-SELECT tasks.*,comments.* FROM tasks JOIN comments on tasks.id  = comments.task_id where tasks.assignee_id = 1;
+SELECT tasks.*,comments.* 
+FROM tasks JOIN comments ON tasks.id  = comments.task_id 
+WHERE tasks.assignee_id = 1;
 ```
 5. **特定のユーザーがオーナーである全てのチームと、そのチームに所属しているメンバーの情報を取得するクエリを書いてください。**
 
