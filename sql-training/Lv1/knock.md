@@ -16,7 +16,7 @@ FROM teams
 WHERE id = 1;
 ```
 ```php
-User::find(1);
+Team::find(1);
 ```
 3. **ユーザーの名前とメールアドレスを取得するクエリを書いてください。**
 ```sql
