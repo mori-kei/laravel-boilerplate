@@ -33,7 +33,7 @@ FROM teams
 WHERE owner_id =1;
 ```
 ```php
-Team::where('owner_id','=','1')->get()
+Team::where('owner_id','=','1')->get();
 ```
 5. **特定のタスクのステータスを更新するクエリを書いてください。**
 ```sql

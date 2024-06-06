@@ -28,7 +28,7 @@ FROM comments JOIN users ON comments.author_id  = users.id
 WHERE comments.task_id = 12;
 ```
 ```php
-Comment::where('task_id',12)->with('author:id,name')->get()
+Comment::where('task_id',12)->with('author:id,name')->get();
 ```
 4. **特定のユーザーがアサインされているタスクの数を取得するクエリを書いてください。**
 ```sql
@@ -37,7 +37,7 @@ FROM tasks
 WHERE tasks.assignee_id = 1;
 ```
 ```php
-Task::where('assignee_id','3')->count()
+Task::where('assignee_id','3')->count();
 ```
 5. **全てのチームと、そのチームに所属しているメンバーの数を取得するクエリを書いてください。**
 ```sql

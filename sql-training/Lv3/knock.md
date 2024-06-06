@@ -7,7 +7,7 @@ FROM  comments
 WHERE author_id =1;
 ```
 ```php
-Comment::where('author_id',1)->get()
+Comment::where('author_id',1)->get();
 ```
 2. **特定のチームに属する全てのタスクを取得するクエリを書いてください。**
 
@@ -50,5 +50,5 @@ FROM teams JOIN members ON teams.id = members.team_id
 WHERE teams.owner_id =1;
 ```
 ```php
-Team::where('owner_id','1')->with('members')->get()
+Team::where('owner_id','1')->with('members')->get();
 ```
