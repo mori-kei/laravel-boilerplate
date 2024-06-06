@@ -33,9 +33,10 @@ WHERE tasks.assignee_id = 1;
 
 5. **全てのチームと、そのチームに所属しているメンバーの数を取得するクエリを書いてください。**
 ```sql
-SELECT teams.*,members.* 
+SELECT teams.*,COUNT(members.id)  
 FROM teams JOIN members 
-ON teams.id = members.team_id;
+ON teams.id = members.team_id 
+GROUP BY teams.id;
 ```
 
 
