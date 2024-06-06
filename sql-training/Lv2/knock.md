@@ -24,7 +24,7 @@ FROM members
 WHERE team_id =1;
 ```
 ```php
-Member::where('team_id',,'1')->get()
+Member::where('team_id','1')->get()
 ```
 4. **特定のユーザーが作成したチームの情報を取得するクエリを書いてください。**
 ```sql
